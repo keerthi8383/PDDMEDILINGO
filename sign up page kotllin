@@ -1,0 +1,54 @@
+package com.saveetha.medilingo
+import android.os.Bundle
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.saveetha.medilingo.R
+class SignupActivity : AppCompatActivity() {
+
+    private lateinit var fullName: EditText
+    private lateinit var email: EditText
+    private lateinit var password: EditText
+    private lateinit var confirmPassword: EditText
+    private lateinit var signUpButton: Button
+    private lateinit var loginRedirectText: TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_signup)
+
+        fullName = findViewById(R.id.fullName)
+        email = findViewById(R.id.email)
+        password = findViewById(R.id.password)
+        confirmPassword = findViewById(R.id.confirmPassword)
+        signUpButton = findViewById(R.id.signupButton)
+        loginRedirectText = findViewById(R.id.loginRedirectText)
+
+        signUpButton.setOnClickListener {
+            val name = fullName.text.toString().trim()
+            val emailText = email.text.toString().trim()
+            val pass = password.text.toString()
+            val confirmPass = confirmPassword.text.toString()
+
+            when {
+                name.isEmpty() -> showToast("Please enter full name")
+                emailText.isEmpty() -> showToast("Please enter email")
+                pass.isEmpty() -> showToast("Please enter password")
+                confirmPass.isEmpty() -> showToast("Please confirm password")
+                pass != confirmPass -> showToast("Passwords do not match")
+                else -> {
+                    showToast("Account created successfully!")
+                    // TODO: Add Retrofit API call here
+                }
+            }
+        }
+
+        loginRedirectText.setOnClickListener {
+            showToast("Redirecting to login...")
+            // TODO: Add navigation to LoginActivity
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+}
