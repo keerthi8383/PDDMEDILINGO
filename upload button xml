@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- Back Icon and Title -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/backIcon"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="Back"
+            android:src="@drawable/leftarrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Select Report Upload Source"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <!-- Subtitle -->
+
+    <!-- Use Camera Button -->
+    <TextView
+        android:layout_width="386dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Choose how you'd like to upload your medical report"
+        android:textColor="#666666"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/useCameraBtn"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="Use Camera"
+        android:layout_marginTop="25dp"
+        android:drawableLeft="@drawable/camera"
+        android:backgroundTint="#28C76F"
+        android:textColor="#FFFFFF"
+        android:drawablePadding="10dp"
+        android:textSize="20sp" />
+
+    <!-- Gallery Button -->
+    <Button
+        android:id="@+id/galleryBtn"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="25dp"
+        android:text="Select from Gallery"
+        android:drawableLeft="@drawable/gallery"
+        android:backgroundTint="#007bff"
+        android:textColor="#FFFFFF"
+        android:drawablePadding="10dp"
+        android:textSize="20sp" />
+
+    <!-- PDF/TXT Button -->
+    <Button
+        android:id="@+id/pdfBtn"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="25dp"
+        android:text="Choose PDF or TXT File"
+        android:drawableLeft="@drawable/file"
+        android:backgroundTint="#FFA500"
+        android:textColor="#FFFFFF"
+        android:drawablePadding="10dp"
+        android:textSize="20sp" />
+
+    <!-- Back to Previous -->
+    <TextView
+        android:id="@+id/backText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text=" Back to Previous"
+        android:textColor="#007bff"
+        android:textSize="20sp" />
+
+
+</LinearLayout>
