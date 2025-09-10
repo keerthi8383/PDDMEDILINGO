@@ -1,0 +1,51 @@
+package com.saveetha.medilingo
+
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+class PhotoCapture : AppCompatActivity() {
+
+    private lateinit var imageView: ImageView
+    private lateinit var usePhotoButton: Button
+    private lateinit var retakeButton: Button
+
+    private var imageUri: Uri? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_photocapture)
+
+        imageView = findViewById(R.id.capturedImage)
+        usePhotoButton = findViewById(R.id.usePhotoBtn)
+        retakeButton = findViewById(R.id.retakePhotoBtn)
+
+        imageUri = intent.getStringExtra("imageUri")?.let { Uri.parse(it) }
+
+        if (imageUri != null) imageView.setImageURI(imageUri)
+        else {
+            Toast.makeText(this, "No image received", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+        usePhotoButton.setOnClickListener {
+            if (imageUri != null) {
+                val intent = Intent(this, GenerateSummary::class.java)
+                intent.putExtra("imageUri", imageUri.toString())
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // 🔑 important
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "No image to use", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        retakeButton.setOnClickListener {
+            startActivity(Intent(this, Cameraopen::class.java))
+            finish()
+        }
+    }
+}
