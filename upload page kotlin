@@ -1,0 +1,61 @@
+package com.saveetha.medilingo
+
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+
+class Uploadpage : AppCompatActivity() {
+
+    // Gallery Image Picker → Directly opens and sends to Imagepreview
+    private val pickGalleryLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                val intent = Intent(this, Imagepreview::class.java)
+                intent.putExtra("imageUri", it.toString()) // Pass the image URI
+                startActivity(intent)
+            }
+        }
+
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+            uri?.let {
+                contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+                val intent = Intent(this, Imagepreview::class.java)
+                intent.putExtra("imageUri", it.toString())
+                startActivity(intent)
+            }
+        }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_uploadpage)
+
+        // ✅ Gallery Button - Opens gallery directly
+        findViewById<Button>(R.id.galleryBtn).setOnClickListener {
+            pickGalleryLauncher.launch("image/*")
+        }
+
+        // 📷 Camera Button
+        findViewById<Button>(R.id.useCameraBtn).setOnClickListener {
+            val intent = Intent(this, Cameraopen::class.java)
+            startActivity(intent)
+        }
+
+        // 📄 PDF/TXT Button - Opens file picker for PDFs and Text files
+        findViewById<Button>(R.id.pdfBtn).setOnClickListener {
+            val mimeTypes = arrayOf("application/pdf", "text/plain")
+            pickImageLauncher.launch(mimeTypes)
+        }
+
+        // 🔙 Back Button
+        findViewById<ImageView>(R.id.backButton).setOnClickListener {
+            finish()
+        }
+    }
+}
