@@ -1,0 +1,48 @@
+package com.saveetha.medilingo
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
+class DashboardActivity : AppCompatActivity() {
+
+    private lateinit var bottomNavigationView: BottomNavigationView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.dashboard)
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        // Check if we were asked to navigate to a specific fragment
+        val targetFragment = intent.getStringExtra("navigateTo")
+        if (targetFragment == "profile") {
+            loadFragment(ProfilePageFragment())
+            bottomNavigationView.selectedItemId = R.id.navigation_profile
+        } else {
+            // Default fragment
+            loadFragment(HomePageFragment())
+            bottomNavigationView.selectedItemId = R.id.navigation_home
+        }
+
+        // Navigation item selection listener
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            val fragment: Fragment = when (item.itemId) {
+                R.id.navigation_home -> HomePageFragment()
+
+                R.id.navigation_settings -> SettingsPageFragment()
+                R.id.navigation_profile -> ProfilePageFragment()
+                else -> HomePageFragment() // fallback in case of unknown id
+            }
+            loadFragment(fragment)
+            true
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
+    }
+}
