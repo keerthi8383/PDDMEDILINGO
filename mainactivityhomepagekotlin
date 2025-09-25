@@ -1,0 +1,67 @@
+package com.saveetha.medilingo
+
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
+
+class HomePageFragment : Fragment(R.layout.fragment_home_page) {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_home_page, container, false)
+
+        // Upload button
+        val uploadButton = view.findViewById<CardView>(R.id.cardUpload)
+        uploadButton.setOnClickListener {
+            val intent = Intent(requireContext(), Uploadpage::class.java)
+            startActivity(intent)
+        }
+
+        // View Summary button
+        val summaryButton = view.findViewById<CardView>(R.id.cardViewSummary)
+        summaryButton.setOnClickListener {
+            val intent = Intent(requireContext(), SummarizedReport::class.java)
+            startActivity(intent)
+        }
+
+        // Translate button
+        val translateButton = view.findViewById<CardView>(R.id.cardTranslate)
+        translateButton.setOnClickListener {
+            val intent = Intent(requireContext(), Translatepage::class.java)
+            val sourceSpinner = view.findViewById<Spinner>(R.id.sourceLanguageSpinner)
+            val targetSpinner = view.findViewById<Spinner>(R.id.targetLanguageSpinner)
+            val sourceLang = sourceSpinner.selectedItem.toString()
+            val targetLang = targetSpinner.selectedItem.toString()
+            intent.putExtra("sourceLang", sourceLang)
+            intent.putExtra("targetLang", targetLang)
+            startActivity(intent)
+        }
+
+        // Setup spinners with language options
+        val sourceSpinner = view.findViewById<Spinner>(R.id.sourceLanguageSpinner)
+        val targetSpinner = view.findViewById<Spinner>(R.id.targetLanguageSpinner)
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.translation_language_names, // Ensure this array is defined in res/values/arrays.xml
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            sourceSpinner.adapter = adapter
+            targetSpinner.adapter = adapter
+        }
+
+        // Set default selections
+        sourceSpinner.setSelection(0) // English
+        targetSpinner.setSelection(1) // Tamil
+
+        return view
+    }
+}
