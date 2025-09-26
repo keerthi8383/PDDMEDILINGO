@@ -1,0 +1,16 @@
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.saveetha.medilingo.R
+
+class Cameralayout : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // This is the line that connects your Kotlin code to the XML layout
+        setContentView(R.layout.cameralayout)
+
+        // Now you can find and use the views from your layout
+        // For example:
+        // val captureButton: Button = findViewById(R.id.capture_button)
+        // captureButton.setOnClickListener { /* handle capture */ }
+    }
+}
