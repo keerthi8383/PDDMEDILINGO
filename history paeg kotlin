@@ -1,0 +1,35 @@
+package com.saveetha.medilingo
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+
+class HistorypageFragment : Fragment() {
+
+    private lateinit var tvHistory: TextView
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_history_page, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Initialize the TextView
+        tvHistory = view.findViewById(R.id.tvHistory)
+
+        // Get the summary text from the Fragment's arguments
+        val summary = arguments?.getString("summary")
+
+        // Set the text to the TextView
+        tvHistory.text = summary ?: "No summary available."
+    }
+}
