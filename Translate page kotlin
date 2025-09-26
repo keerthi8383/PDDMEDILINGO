@@ -1,0 +1,96 @@
+package com.saveetha.medilingo
+
+import android.os.Bundle
+import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
+import androidx.appcompat.app.AppCompatActivity
+
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+// Import the necessary data classes
+import com.saveetha.medilingo.network.TranslationRequest
+import com.saveetha.medilingo.network.TranslationResponse
+import com.saveetha.medilingo.network.TranslationService
+
+class Translatepage : AppCompatActivity() {
+
+    private lateinit var sourceText: EditText
+    private lateinit var translatedText: EditText
+    private lateinit var sourceSpinner: Spinner
+    private lateinit var targetSpinner: Spinner
+
+    // ⚠️ CORRECTED BASE_URL
+    // Use your computer's local IP for a physical device, or 10.0.2.2 for an emulator.
+    private val BASE_URL = "http://192.168.205.171:5001/"
+    // private val BASE_URL = "http://10.0.2.2:5001/" // Use this for emulator testing
+
+    private val apiService: TranslationService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(TranslationService::class.java)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_translatepage)
+
+        sourceSpinner = findViewById(R.id.sourceLanguageSpinner)
+        targetSpinner = findViewById(R.id.targetLanguageSpinner)
+        sourceText = findViewById(R.id.sourceText)
+        translatedText = findViewById(R.id.translatedText)
+        val translateButton = findViewById<Button>(R.id.translateButton)
+        val downloadButton = findViewById<Button>(R.id.downloadButton)
+
+        val receivedText = intent.getStringExtra("sourceText") ?: ""
+        sourceText.setText(receivedText)
+
+        // These resources should be defined in strings.xml
+        val languages = resources.getStringArray(R.array.translation_language_names)
+        val languageCodes = resources.getStringArray(R.array.translation_language_codes)
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languages)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sourceSpinner.adapter = adapter
+        targetSpinner.adapter = adapter
+        sourceSpinner.setSelection(0)
+        targetSpinner.setSelection(1)
+
+        translateButton.setOnClickListener {
+            val inputText = sourceText.text.toString()
+            if (inputText.isNotEmpty()) {
+                val sourceLang = languageCodes[sourceSpinner.selectedItemPosition]
+                val targetLang = languageCodes[targetSpinner.selectedItemPosition]
+                translateText(inputText, sourceLang, targetLang)
+            }
+        }
+    }
+
+    private fun translateText(text: String, sourceLang: String, targetLang: String) {
+        val request = TranslationRequest(q = text, source = sourceLang, target = targetLang)
+        apiService.translate(request).enqueue(object : Callback<TranslationResponse> {
+            override fun onResponse(call: Call<TranslationResponse>, response: Response<TranslationResponse>) {
+                if (response.isSuccessful) {
+                    val translated = response.body()?.translatedText
+                    translatedText.setText(translated)
+                } else {
+                    translatedText.setText("Translation failed.")
+                    Log.e("Translatepage", "API call failed with code: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<TranslationResponse>, t: Throwable) {
+                translatedText.setText("Network error. Please try again.")
+                Log.e("Translatepage", "Network error: ${t.message}", t)
+            }
+        })
+    }
+}
