@@ -1,0 +1,103 @@
+package com.saveetha.medilingo
+
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+
+
+class SettingsPageFragment : Fragment() {
+
+    private lateinit var editProfile: LinearLayout
+    private lateinit var changePassword: TextView
+    private lateinit var appLanguage: TextView
+    private lateinit var translationLanguage: TextView
+    private lateinit var voiceSpeed: TextView
+    private lateinit var clearHistory: TextView
+    private lateinit var receiveAppUpdates: TextView
+    private lateinit var medicalTipNotifications: TextView
+    private lateinit var helpFAQs: TextView
+    private lateinit var contactSupport: TextView
+    private lateinit var aboutMediLingo: TextView
+    private lateinit var privacyPolicy: TextView
+    private lateinit var termsConditions: TextView
+    private lateinit var logOut: TextView
+    private lateinit var deleteAccount: TextView
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_settings_page, container, false)
+
+        // Initialize views
+        editProfile = view.findViewById(R.id.edit_profile)
+        changePassword = view.findViewById(R.id.change_password)
+        appLanguage = view.findViewById(R.id.app_language)
+        clearHistory = view.findViewById(R.id.clear_history)
+        receiveAppUpdates = view.findViewById(R.id.receive_App_updates)
+        medicalTipNotifications = view.findViewById(R.id.medical_tip_notifications)
+        helpFAQs = view.findViewById(R.id.help_faqs)
+        contactSupport = view.findViewById(R.id.contact_support)
+        aboutMediLingo = view.findViewById(R.id.about_medi_lingo)
+        privacyPolicy = view.findViewById(R.id.privacy_policy)
+        termsConditions = view.findViewById(R.id.terms_conditions)
+        logOut = view.findViewById(R.id.btnLogout)
+        deleteAccount = view.findViewById(R.id.delete_account)
+
+        // ✅ Navigation
+        editProfile.setOnClickListener {
+            startActivity(Intent(requireContext(), Editprofile::class.java))
+        }
+
+        changePassword.setOnClickListener {
+            startActivity(Intent(requireContext(), Changepassword::class.java))
+        }
+
+        // ✅ Language change
+        appLanguage.setOnClickListener {
+            showLanguageDialog()
+        }
+
+        logOut.setOnClickListener {
+            Toast.makeText(requireContext(), "Logging out...", Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
+        }
+
+        return view
+    }
+
+    // 🔥 Show language selection dialog
+    private fun showLanguageDialog() {
+        val languages = arrayOf("English", "marati", "French", "German", "Hindi", "Tamil", "Telugu")
+        val codes = arrayOf("en", "es", "", "de", "hi", "ta", "te")
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Choose App Language")
+            .setItems(languages) { _, which ->
+                val selectedLang = codes[which]
+
+                // Save language to preferences
+                val prefs = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+                prefs.edit().putString("AppLang", selectedLang).apply()
+
+                // Restart Dashboard with new locale
+                val refresh = Intent(requireContext(), DashboardActivity::class.java)
+                refresh.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(refresh)
+                requireActivity().finish()
+            }
+            .show()
+    }
+}
