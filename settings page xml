@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6F0FA">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- ACCOUNT SETTINGS -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="12dp"
+            android:text="ACCOUNT SETTINGS"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Item with arrow -->
+        <LinearLayout
+            android:id="@+id/edit_profile"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="👤 Edit Profile"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@drawable/right_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/change_password"
+                android:text="🔒 Change Password"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@drawable/right_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- LANGUAGE PREFERENCES -->
+        <TextView
+            android:text="LANGUAGE PREFERENCES"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="9dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/app_language"
+            android:text="🌐App Language"
+            android:textSize="18sp"
+            android:paddingVertical="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:drawableEnd="@drawable/right_arrow"
+            android:drawablePadding="16dp"
+            android:paddingHorizontal="1dp" />
+
+
+        <!-- DATA SETTINGS -->
+        <TextView
+            android:text="DATA SETTINGS"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/clear_history"
+            android:text="🗑️ Clear History"
+            android:textSize="18dp"
+            android:paddingVertical="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingVertical="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </LinearLayout>
+
+        <!-- NOTIFICATIONS -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="NOTIFICATIONS"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/receive_App_updates"
+                android:text="📲 Receive App Updates"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <Switch
+                android:id="@+id/appUpdatesSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingVertical="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/medical_tip_notifications"
+                android:text="💡 Medical Tip Notifications"
+                android:textSize="18dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <Switch
+                android:id="@+id/medicalTipSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <!-- SUPPORT -->
+        <TextView
+            android:text="SUPPORT"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="9dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/help_faqs"
+            android:text=" Help  FAQs"
+            android:textSize="18dp"
+            android:paddingVertical="8dp"
+            android:drawableEnd="@drawable/right_arrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/contact_support"
+            android:text="🎧 Contact Support"
+            android:textSize="18dp"
+            android:paddingVertical="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/right_arrow"/>
+
+        <!-- APP INFO -->
+        <TextView
+
+            android:text="APP INFO"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="9dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/about_medi_lingo"
+            android:text="ℹ️ About MediLingo"
+            android:textSize="18dp"
+            android:paddingVertical="8dp"
+            android:drawableEnd="@drawable/right_arrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/privacy_policy"
+            android:text="🛡️ Privacy Policy"
+            android:textSize="18dp"
+            android:paddingVertical="8dp"
+            android:drawableEnd="@drawable/right_arrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/terms_conditions"
+            android:text="📄 Terms  Conditions"
+            android:textSize="18dp"
+            android:paddingVertical="8dp"
+            android:drawableEnd="@drawable/right_arrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- ACCOUNT ACTIONS -->
+        <TextView
+            android:text="ACCOUNT ACTIONS"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="9dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/btnLogout"
+            android:text="🚪 Log Out"
+            android:textColor="#D32F2F"
+            android:textSize="20sp"
+            android:paddingVertical="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/delete_account"
+            android:text="🗑️ Delete Account"
+            android:textColor="#D32F2F"
+            android:textSize="20dp"
+            android:paddingBottom="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>
